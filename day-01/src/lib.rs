@@ -1,4 +1,4 @@
-pub fn part1(input: &Vec<i32>) -> Result<i32, String> {
+pub fn part1(input: &Vec<u32>) -> Result<u32, String> {
     for a in input {
         for b in input {
             if 2020 == (a + b) {
@@ -9,7 +9,7 @@ pub fn part1(input: &Vec<i32>) -> Result<i32, String> {
     Err(String::from("No valid values!"))
 }
 
-pub fn part2(input: &Vec<i32>) -> Result<i32, String> {
+pub fn part2(input: &Vec<u32>) -> Result<u32, String> {
     for a in input {
         for b in input {
             for c in input {
@@ -39,7 +39,7 @@ mod tests {
         assert_eq!(result.unwrap(), 241861950);
     }
 
-    fn make_demo_input() -> Vec<i32> {
+    fn make_demo_input() -> Vec<u32> {
         return vec![1721, 979, 366, 299, 675, 1456];
     }
 }
