@@ -24,7 +24,7 @@ fn is_valid(input: &String) -> bool {
         .count()
         .try_into()
         .unwrap();
-    min >= char_count && char_count <= max
+    min <= char_count && char_count <= max
 }
 
 #[cfg(test)]
