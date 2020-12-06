@@ -9,10 +9,13 @@ pub fn part1(map: &Vec<String>, go_right: usize, go_down: usize) -> usize {
         if 0 == line_width {
             line_width = line.chars().count();
         }
-        if x > line_width {
+        if x >= line_width {
             x = x - line_width;
         }
-        let char = line.chars().nth(x).unwrap();
+        let char = line.chars().nth(x).expect(&format!(
+            "Expected char at index: {} max: {}",
+            x, line_width
+        ));
         if '#' == char {
             trees += 1;
         }
@@ -20,6 +23,10 @@ pub fn part1(map: &Vec<String>, go_right: usize, go_down: usize) -> usize {
         x += go_right;
     }
     trees
+}
+
+pub fn part2(_map: &Vec<String>) -> usize {
+    unimplemented!()
 }
 
 #[cfg(test)]
