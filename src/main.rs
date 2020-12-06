@@ -6,10 +6,14 @@ fn main() {
     // println!("Day 1, part 1 solution is: {}", exec_day_01_part_1());
     // println!("Day 1, part 2 solution is: {}", exec_day_01_part_2());
     println!("Day 2, part 1 solution is: {}", exec_day_02_part_1());
+    println!("Day 2, part 2 solution is: {}", exec_day_02_part_2());
 }
 
 fn exec_day_02_part_1() -> usize {
     day_02::part1(&get_day_02_input())
+}
+fn exec_day_02_part_2() -> usize {
+    day_02::part2(&get_day_02_input())
 }
 
 fn get_day_02_input() -> Vec<String> {
