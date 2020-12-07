@@ -24,7 +24,7 @@ fn get_day_03_input() -> Vec<String> {
     fs::read_to_string("./input/day_03.txt")
         .expect("Something went wrong reading the file")
         .lines()
-        .map(|line| String::from(line))
+        .map(String::from)
         .collect()
 }
 
@@ -43,7 +43,7 @@ fn get_day_02_input() -> Vec<String> {
     fs::read_to_string("./input/day_02.txt")
         .expect("Something went wrong reading the file")
         .lines()
-        .map(|line| String::from(line))
+        .map(String::from)
         .collect()
 }
 

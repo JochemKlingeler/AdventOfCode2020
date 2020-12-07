@@ -1,21 +1,21 @@
-pub fn part1(map: &Vec<String>, go_right: usize, go_down: usize) -> usize {
+pub fn part1(map: &[String], go_right: usize, go_down: usize) -> usize {
     let mut x: usize = 0;
     let mut y: usize = 0;
     let mut trees: usize = 0;
     let max_lines = map.iter().count();
     let mut line_width: usize = 0;
     while y < max_lines {
-        let line = map.iter().nth(y).unwrap();
+        let line = map[y].clone();
         if 0 == line_width {
             line_width = line.chars().count();
         }
         if x >= line_width {
-            x = x - line_width;
+            x -= line_width;
         }
-        let char = line.chars().nth(x).expect(&format!(
-            "Expected char at index: {} max: {}",
-            x, line_width
-        ));
+        let char = line
+            .chars()
+            .nth(x)
+            .unwrap_or_else(|| panic!("Expected char at index: {} max: {}", x, line_width));
         if '#' == char {
             trees += 1;
         }
@@ -25,13 +25,12 @@ pub fn part1(map: &Vec<String>, go_right: usize, go_down: usize) -> usize {
     trees
 }
 
-pub fn part2(map: &Vec<String>) -> usize {
-    let a = part1(&map, 1, 1);
-    let b = part1(&map, 3, 1);
-    let c = part1(&map, 5, 1);
-    let d = part1(&map, 7, 1);
-    let e = part1(&map, 1, 2);
-    a * b * c * d * e
+pub fn part2(map: &[String]) -> usize {
+    part1(&map, 1, 1)
+        * part1(&map, 3, 1)
+        * part1(&map, 5, 1)
+        * part1(&map, 7, 1)
+        * part1(&map, 1, 2)
 }
 
 #[cfg(test)]

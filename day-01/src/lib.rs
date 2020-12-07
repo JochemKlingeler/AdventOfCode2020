@@ -1,4 +1,4 @@
-pub fn part1(input: &Vec<u32>) -> Result<u32, String> {
+pub fn part1(input: &[u32]) -> Result<u32, String> {
     for a in input {
         for b in input {
             if 2020 == (a + b) {
@@ -9,7 +9,7 @@ pub fn part1(input: &Vec<u32>) -> Result<u32, String> {
     Err(String::from("No valid values!"))
 }
 
-pub fn part2(input: &Vec<u32>) -> Result<u32, String> {
+pub fn part2(input: &[u32]) -> Result<u32, String> {
     for a in input {
         for b in input {
             for c in input {

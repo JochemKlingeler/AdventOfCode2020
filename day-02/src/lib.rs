@@ -1,32 +1,25 @@
-use std::convert::TryInto;
-
-pub fn part1(input: &Vec<String>) -> usize {
+pub fn part1(input: &[String]) -> usize {
     input.iter().filter(|i| part_1_is_valid(&i)).count()
 }
 
-pub fn part2(input: &Vec<String>) -> usize {
+pub fn part2(input: &[String]) -> usize {
     input.iter().filter(|i| part_2_is_valid(&i)).count()
 }
 
-fn part_1_is_valid(input: &String) -> bool {
+fn part_1_is_valid(input: &str) -> bool {
     let (min, max, char, password) = split_string_into_results(input);
-    let char_count: usize = password
-        .chars()
-        .filter(|c| c == &char)
-        .count()
-        .try_into()
-        .unwrap();
+    let char_count: usize = password.chars().filter(|c| c == &char).count();
     min <= char_count && char_count <= max
 }
 
-fn part_2_is_valid(input: &String) -> bool {
+fn part_2_is_valid(input: &str) -> bool {
     let (min, max, char, password) = split_string_into_results(input);
     let char1: char = password.chars().nth(min - 1).unwrap();
     let char2: char = password.chars().nth(max - 1).unwrap();
     (char1 == char && char2 != char) || (char2 == char && char1 != char)
 }
 
-fn split_string_into_results(input: &String) -> (usize, usize, char, &str) {
+fn split_string_into_results(input: &str) -> (usize, usize, char, &str) {
     let mut main_split = input.splitn(3, ' ');
     let (rules, char_to_find, password) = (
         main_split.next().unwrap(),
@@ -38,7 +31,7 @@ fn split_string_into_results(input: &String) -> (usize, usize, char, &str) {
         rules_split.next().unwrap().parse::<usize>().unwrap(),
         rules_split.next().unwrap().parse::<usize>().unwrap(),
     );
-    let char = char_to_find.chars().nth(0).unwrap();
+    let char = char_to_find.chars().next().unwrap();
     (min, max, char, password)
 }
 
