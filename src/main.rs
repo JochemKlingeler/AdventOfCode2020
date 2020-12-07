@@ -8,9 +8,14 @@ fn main() {
     // println!("Day 3, part 1 solution is: {}", exec_day_03_part_1());
     // println!("Day 3, part 2 solution is: {}", exec_day_03_part_2());
     println!("Day 4, part 1 solution is: {}", exec_day_04_part_1());
+    println!("Day 4, part 2 solution is: {}", exec_day_04_part_2());
 }
 fn exec_day_04_part_1() -> usize {
     day_04::part1(&get_day_04_input())
+}
+
+fn exec_day_04_part_2() -> usize {
+    day_04::part2(&get_day_04_input())
 }
 
 fn get_day_04_input() -> String {

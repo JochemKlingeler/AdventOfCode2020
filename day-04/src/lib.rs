@@ -46,15 +46,47 @@ impl Field {
             MeasureLength::CM => 150 <= amount && amount <= 193,
         }
     }
+
+    pub fn is_hair_color(&self) -> bool {
+        if self.field.chars().count() != 7 {
+            return false;
+        }
+
+        if !self.field[0..1].eq("#") {
+            return false;
+        }
+
+        for char in self.field[1..].chars() {
+            if !char.is_ascii_hexdigit() {
+                return false;
+            }
+        }
+
+        true
+    }
+
+    pub fn is_eye_color(&self) -> bool {
+        matches!(
+            &self.field[..],
+            "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth"
+        )
+    }
+
+    pub fn is_passport_id(&self) -> bool {
+        if self.field.chars().count() != 9 {
+            return false;
+        }
+        matches!(self.field.parse::<usize>(), Ok(_))
+    }
 }
 struct RequiredFields {
     pub byr: Option<Year>,
     pub iyr: Option<Year>,
     pub eyr: Option<Year>,
-    pub hgt: Option<String>,
-    pub hcl: Option<String>,
-    pub ecl: Option<String>,
-    pub pid: Option<String>,
+    pub hgt: Option<Field>,
+    pub hcl: Option<Field>,
+    pub ecl: Option<Field>,
+    pub pid: Option<Field>,
     pub cid: Option<String>,
 }
 
@@ -112,10 +144,26 @@ impl RequiredFields {
                     year: value.parse().expect("Expected value to be parsable"),
                 })
             }
-            "hgt" => self.hgt = Some(value.to_string()),
-            "hcl" => self.hcl = Some(value.to_string()),
-            "ecl" => self.ecl = Some(value.to_string()),
-            "pid" => self.pid = Some(value.to_string()),
+            "hgt" => {
+                self.hgt = Some(Field {
+                    field: value.to_string(),
+                })
+            }
+            "hcl" => {
+                self.hcl = Some(Field {
+                    field: value.to_string(),
+                })
+            }
+            "ecl" => {
+                self.ecl = Some(Field {
+                    field: value.to_string(),
+                })
+            }
+            "pid" => {
+                self.pid = Some(Field {
+                    field: value.to_string(),
+                })
+            }
             "cid" => self.cid = Some(value.to_string()),
             _ => panic!("Invalid field: {}", field),
         }
@@ -130,6 +178,67 @@ impl RequiredFields {
             && self.hcl.is_some()
             && self.ecl.is_some()
             && self.pid.is_some()
+    }
+
+    pub fn is_valid(&self) -> bool {
+        match &self.byr {
+            Some(value) => {
+                if !value.is_valid_birth_year() {
+                    return false;
+                }
+            }
+            None => return false,
+        }
+        match &self.iyr {
+            Some(value) => {
+                if !value.is_valid_issue_year() {
+                    return false;
+                }
+            }
+            None => return false,
+        }
+        match &self.eyr {
+            Some(value) => {
+                if !value.is_valid_expiration_year() {
+                    return false;
+                }
+            }
+            None => return false,
+        }
+        match &self.hgt {
+            Some(value) => {
+                if !value.is_height() {
+                    return false;
+                }
+            }
+            None => return false,
+        }
+        match &self.hcl {
+            Some(value) => {
+                if !value.is_hair_color() {
+                    return false;
+                }
+            }
+            None => return false,
+        }
+        match &self.ecl {
+            Some(value) => {
+                if !value.is_eye_color() {
+                    return false;
+                }
+            }
+            None => return false,
+        }
+        match &self.pid {
+            Some(value) => {
+                if !value.is_passport_id() {
+                    return false;
+                }
+            }
+            None => return false,
+        }
+
+        true
     }
 }
 
@@ -147,6 +256,26 @@ pub fn part1(input: &str) -> usize {
         required_fields.add_fields_from_string(input_line);
     }
     if required_fields.has_all_fields() {
+        valid_count += 1;
+    }
+    required_fields.reset();
+    valid_count
+}
+
+pub fn part2(input: &str) -> usize {
+    let mut required_fields = RequiredFields::new();
+    let mut valid_count = 0;
+    for input_line in input.lines() {
+        if input_line.is_empty() {
+            if required_fields.is_valid() {
+                valid_count += 1;
+            }
+            required_fields.reset();
+            continue;
+        }
+        required_fields.add_fields_from_string(input_line);
+    }
+    if required_fields.is_valid() {
         valid_count += 1;
     }
     required_fields.reset();
@@ -174,5 +303,9 @@ iyr:2011 ecl:brn hgt:59in";
     #[test]
     fn part1_demo() {
         assert_eq!(2, part1(INPUT));
+    }
+    #[test]
+    fn part2_demo() {
+        assert_eq!(2, part2(INPUT));
     }
 }
