@@ -79,6 +79,7 @@ impl Field {
         matches!(self.field.parse::<usize>(), Ok(_))
     }
 }
+#[derive(Default)]
 struct RequiredFields {
     pub byr: Option<Year>,
     pub iyr: Option<Year>,
@@ -91,18 +92,6 @@ struct RequiredFields {
 }
 
 impl RequiredFields {
-    pub fn new() -> RequiredFields {
-        RequiredFields {
-            byr: None,
-            iyr: None,
-            eyr: None,
-            hgt: None,
-            hcl: None,
-            ecl: None,
-            pid: None,
-            cid: None,
-        }
-    }
     pub fn reset(&mut self) {
         self.byr = None;
         self.iyr = None;
@@ -243,7 +232,7 @@ impl RequiredFields {
 }
 
 pub fn part1(input: &str) -> usize {
-    let mut required_fields = RequiredFields::new();
+    let mut required_fields = RequiredFields::default();
     let mut valid_count = 0;
     for input_line in input.lines() {
         if input_line.is_empty() {
@@ -263,7 +252,7 @@ pub fn part1(input: &str) -> usize {
 }
 
 pub fn part2(input: &str) -> usize {
-    let mut required_fields = RequiredFields::new();
+    let mut required_fields = RequiredFields::default();
     let mut valid_count = 0;
     for input_line in input.lines() {
         if input_line.is_empty() {
