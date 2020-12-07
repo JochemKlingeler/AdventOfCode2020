@@ -9,14 +9,13 @@ fn main() {
     // println!("Day 2, part 1 solution is: {}", exec_day_02_part_1());
     // println!("Day 2, part 2 solution is: {}", exec_day_02_part_2());
     println!("Day 3, part 1 solution is: {}", exec_day_03_part_1());
-    // println!("Day 3, part 2 solution is: {}", exec_day_03_part_2());
+    println!("Day 3, part 2 solution is: {}", exec_day_03_part_2());
 }
 
 fn exec_day_03_part_1() -> usize {
     day_03::part1(&get_day_03_input(), 3, 1)
 }
 
-#[allow(dead_code)]
 fn exec_day_03_part_2() -> usize {
     day_03::part2(&get_day_03_input())
 }

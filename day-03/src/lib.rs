@@ -25,8 +25,13 @@ pub fn part1(map: &Vec<String>, go_right: usize, go_down: usize) -> usize {
     trees
 }
 
-pub fn part2(_map: &Vec<String>) -> usize {
-    unimplemented!()
+pub fn part2(map: &Vec<String>) -> usize {
+    let a = part1(&map, 1, 1);
+    let b = part1(&map, 3, 1);
+    let c = part1(&map, 5, 1);
+    let d = part1(&map, 7, 1);
+    let e = part1(&map, 1, 2);
+    a * b * c * d * e
 }
 
 #[cfg(test)]
@@ -35,6 +40,11 @@ mod tests {
     #[test]
     fn part1_demo() {
         assert_eq!(7, part1(&get_demo_map(), 3, 1));
+    }
+
+    #[test]
+    fn part2_demo() {
+        assert_eq!(336, part2(&get_demo_map()));
     }
 
     fn get_demo_map() -> Vec<String> {
