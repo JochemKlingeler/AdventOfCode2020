@@ -92,19 +92,8 @@ struct RequiredFields {
 }
 
 impl RequiredFields {
-    pub fn reset(&mut self) {
-        self.byr = None;
-        self.iyr = None;
-        self.eyr = None;
-        self.hgt = None;
-        self.hcl = None;
-        self.ecl = None;
-        self.pid = None;
-        self.cid = None;
-    }
-
     pub fn add_fields_from_string(&mut self, passport: &str) {
-        let fields = passport.split(' ');
+        let fields = passport.split_whitespace();
         for field in fields {
             let split_index = field.find(':').unwrap_or_else(|| {
                 panic!(
@@ -232,43 +221,28 @@ impl RequiredFields {
 }
 
 pub fn part1(input: &str) -> usize {
-    let mut required_fields = RequiredFields::default();
-    let mut valid_count = 0;
-    for input_line in input.lines() {
-        if input_line.is_empty() {
-            if required_fields.has_all_fields() {
-                valid_count += 1;
-            }
-            required_fields.reset();
-            continue;
-        }
-        required_fields.add_fields_from_string(input_line);
-    }
-    if required_fields.has_all_fields() {
-        valid_count += 1;
-    }
-    required_fields.reset();
-    valid_count
+    input
+        .split("\n\n")
+        .filter(|input_line| -> bool {
+            let mut fields = RequiredFields::default();
+            fields.add_fields_from_string(input_line);
+            let result = fields.has_all_fields();
+            println!("Passport: {}", input_line);
+            println!("Result: {}", result);
+            result
+        })
+        .count()
 }
 
 pub fn part2(input: &str) -> usize {
-    let mut required_fields = RequiredFields::default();
-    let mut valid_count = 0;
-    for input_line in input.lines() {
-        if input_line.is_empty() {
-            if required_fields.is_valid() {
-                valid_count += 1;
-            }
-            required_fields.reset();
-            continue;
-        }
-        required_fields.add_fields_from_string(input_line);
-    }
-    if required_fields.is_valid() {
-        valid_count += 1;
-    }
-    required_fields.reset();
-    valid_count
+    input
+        .split("\n\n")
+        .filter(|input_line| -> bool {
+            let mut fields = RequiredFields::default();
+            fields.add_fields_from_string(input_line);
+            fields.has_all_fields() && fields.is_valid()
+        })
+        .count()
 }
 
 #[cfg(test)]
