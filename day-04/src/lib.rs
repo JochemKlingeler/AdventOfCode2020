@@ -227,8 +227,6 @@ pub fn part1(input: &str) -> usize {
             let mut fields = RequiredFields::default();
             fields.add_fields_from_string(input_line);
             let result = fields.has_all_fields();
-            println!("Passport: {}", input_line);
-            println!("Result: {}", result);
             result
         })
         .count()
