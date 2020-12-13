@@ -19,7 +19,7 @@ fn do_part1(input: &[u32]) -> u32 {
     panic!("No valid values!");
 }
 
-pub fn do_part2(input: &[u32]) -> u32 {
+fn do_part2(input: &[u32]) -> u32 {
     for a in input {
         for b in input {
             for c in input {

@@ -3,30 +3,3 @@
 [[package]]
 name = "advent_of_code_2020"
 version = "0.1.0"
-dependencies = [
- "day-01",
- "day-02",
- "day-03",
- "day-04",
- "day-05",
-]
-
-[[package]]
-name = "day-01"
-version = "0.1.0"
-
-[[package]]
-name = "day-02"
-version = "0.1.0"
-
-[[package]]
-name = "day-03"
-version = "0.1.0"
-
-[[package]]
-name = "day-04"
-version = "0.1.0"
-
-[[package]]
-name = "day-05"
-version = "0.1.0"
