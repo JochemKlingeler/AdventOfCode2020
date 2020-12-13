@@ -226,8 +226,7 @@ pub fn part1(input: &str) -> usize {
         .filter(|input_line| -> bool {
             let mut fields = RequiredFields::default();
             fields.add_fields_from_string(input_line);
-            let result = fields.has_all_fields();
-            result
+            fields.has_all_fields()
         })
         .count()
 }
