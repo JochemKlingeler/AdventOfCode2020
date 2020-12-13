@@ -1,25 +1,43 @@
-pub fn part1(input: &[u32]) -> Result<u32, String> {
+use std::fs;
+
+pub fn part1() -> u32 {
+    do_part1(&get_day_01_input())
+}
+
+pub fn part2() -> u32 {
+    do_part2(&get_day_01_input())
+}
+
+fn do_part1(input: &[u32]) -> u32 {
     for a in input {
         for b in input {
             if 2020 == (a + b) {
-                return Ok(a * b);
+                return a * b;
             }
         }
     }
-    Err(String::from("No valid values!"))
+    panic!("No valid values!");
 }
 
-pub fn part2(input: &[u32]) -> Result<u32, String> {
+pub fn do_part2(input: &[u32]) -> u32 {
     for a in input {
         for b in input {
             for c in input {
                 if 2020 == (a + b + c) {
-                    return Ok(a * b * c);
+                    return a * b * c;
                 }
             }
         }
     }
-    Err(String::from("No valid values!"))
+    panic!("No valid values!");
+}
+
+fn get_day_01_input() -> Vec<u32> {
+    fs::read_to_string("./input/day_01.txt")
+        .expect("Something went wrong reading the file")
+        .lines()
+        .map(|line| line.parse::<u32>().expect("All values should be u32s"))
+        .collect()
 }
 
 #[cfg(test)]
@@ -28,15 +46,11 @@ mod tests {
 
     #[test]
     fn part1_demo() {
-        let result = part1(&make_demo_input());
-        assert!(result.is_ok());
-        assert_eq!(result.unwrap(), 514579);
+        assert_eq!(514579, do_part1(&make_demo_input()));
     }
     #[test]
     fn part2_demo() {
-        let result = part2(&make_demo_input());
-        assert!(result.is_ok());
-        assert_eq!(result.unwrap(), 241861950);
+        assert_eq!(241861950, do_part2(&make_demo_input()));
     }
 
     fn make_demo_input() -> Vec<u32> {

@@ -1,4 +1,10 @@
-pub fn part1(input: &str) -> usize {
+use std::fs;
+
+pub fn part1() -> usize {
+    do_part1(&get_day_05_input())
+}
+
+fn do_part1(input: &str) -> usize {
     input
         .lines()
         .map(|f| get_id(f))
@@ -6,7 +12,11 @@ pub fn part1(input: &str) -> usize {
         .expect("Expected a max value")
 }
 
-pub fn part2(input: &str) -> usize {
+pub fn part2() -> usize {
+    do_part2(&get_day_05_input())
+}
+
+fn do_part2(input: &str) -> usize {
     let all_ids: Vec<usize> = input
         .lines()
         .filter(|f| {
@@ -63,6 +73,11 @@ fn get_seat(input: &str) -> usize {
     }
     *range.first().expect("Expected seat range to not be empty")
 }
+
+fn get_day_05_input() -> String {
+    fs::read_to_string("./input/day_05.txt").expect("Something went wrong reading the file")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

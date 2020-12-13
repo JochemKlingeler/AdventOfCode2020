@@ -1,6 +1,9 @@
+use std::fs;
+
 struct Year {
     pub year: usize,
 }
+
 impl Year {
     pub fn is_valid_birth_year(&self) -> bool {
         1920 <= self.year && self.year <= 2002
@@ -12,13 +15,16 @@ impl Year {
         2020 <= self.year && self.year <= 2030
     }
 }
+
 enum MeasureLength {
     IN,
     CM,
 }
+
 struct Field {
     pub field: String,
 }
+
 impl Field {
     pub fn is_height(&self) -> bool {
         let index;
@@ -79,6 +85,7 @@ impl Field {
         matches!(self.field.parse::<usize>(), Ok(_))
     }
 }
+
 #[derive(Default)]
 struct RequiredFields {
     pub byr: Option<Year>,
@@ -220,7 +227,11 @@ impl RequiredFields {
     }
 }
 
-pub fn part1(input: &str) -> usize {
+pub fn part1() -> usize {
+    do_part1(&get_day_04_input())
+}
+
+fn do_part1(input: &str) -> usize {
     input
         .split("\n\n")
         .filter(|input_line| -> bool {
@@ -231,7 +242,11 @@ pub fn part1(input: &str) -> usize {
         .count()
 }
 
-pub fn part2(input: &str) -> usize {
+pub fn part2() -> usize {
+    do_part2(&get_day_04_input())
+}
+
+fn do_part2(input: &str) -> usize {
     input
         .split("\n\n")
         .filter(|input_line| -> bool {
@@ -240,6 +255,10 @@ pub fn part2(input: &str) -> usize {
             fields.has_all_fields() && fields.is_valid()
         })
         .count()
+}
+
+fn get_day_04_input() -> String {
+    fs::read_to_string("./input/day_04.txt").expect("Something went wrong reading the file")
 }
 
 #[cfg(test)]
@@ -262,10 +281,10 @@ iyr:2011 ecl:brn hgt:59in";
 
     #[test]
     fn part1_demo() {
-        assert_eq!(2, part1(INPUT));
+        assert_eq!(2, do_part1(INPUT));
     }
     #[test]
     fn part2_demo() {
-        assert_eq!(2, part2(INPUT));
+        assert_eq!(2, do_part2(INPUT));
     }
 }

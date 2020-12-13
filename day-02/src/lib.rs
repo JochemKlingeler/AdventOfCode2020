@@ -1,8 +1,18 @@
-pub fn part1(input: &[String]) -> usize {
+use std::fs;
+
+pub fn part1() -> usize {
+    do_part1(&get_day_02_input())
+}
+
+pub fn part2() -> usize {
+    do_part2(&get_day_02_input())
+}
+
+fn do_part1(input: &[String]) -> usize {
     input.iter().filter(|i| part_1_is_valid(&i)).count()
 }
 
-pub fn part2(input: &[String]) -> usize {
+fn do_part2(input: &[String]) -> usize {
     input.iter().filter(|i| part_2_is_valid(&i)).count()
 }
 
@@ -35,18 +45,26 @@ fn split_string_into_results(input: &str) -> (usize, usize, char, &str) {
     (min, max, char, password)
 }
 
+fn get_day_02_input() -> Vec<String> {
+    fs::read_to_string("./input/day_02.txt")
+        .expect("Something went wrong reading the file")
+        .lines()
+        .map(String::from)
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn part1_demo() {
-        assert_eq!(2, part1(&make_demo_input()))
+        assert_eq!(2, do_part1(&make_demo_input()))
     }
 
     #[test]
     fn part2_demo() {
-        assert_eq!(1, part2(&make_demo_input()))
+        assert_eq!(1, do_part2(&make_demo_input()))
     }
 
     fn make_demo_input() -> Vec<String> {

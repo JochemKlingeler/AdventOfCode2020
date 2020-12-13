@@ -1,4 +1,14 @@
-pub fn part1(map: &[String], go_right: usize, go_down: usize) -> usize {
+use std::fs;
+
+pub fn part1() -> usize {
+    do_part1(&get_day_03_input(), 3, 1)
+}
+
+pub fn part2() -> usize {
+    do_part2(&get_day_03_input())
+}
+
+pub fn do_part1(map: &[String], go_right: usize, go_down: usize) -> usize {
     let mut x: usize = 0;
     let mut y: usize = 0;
     let mut trees: usize = 0;
@@ -25,12 +35,20 @@ pub fn part1(map: &[String], go_right: usize, go_down: usize) -> usize {
     trees
 }
 
-pub fn part2(map: &[String]) -> usize {
-    part1(&map, 1, 1)
-        * part1(&map, 3, 1)
-        * part1(&map, 5, 1)
-        * part1(&map, 7, 1)
-        * part1(&map, 1, 2)
+fn do_part2(map: &[String]) -> usize {
+    do_part1(&map, 1, 1)
+        * do_part1(&map, 3, 1)
+        * do_part1(&map, 5, 1)
+        * do_part1(&map, 7, 1)
+        * do_part1(&map, 1, 2)
+}
+
+fn get_day_03_input() -> Vec<String> {
+    fs::read_to_string("./input/day_03.txt")
+        .expect("Something went wrong reading the file")
+        .lines()
+        .map(String::from)
+        .collect()
 }
 
 #[cfg(test)]
@@ -38,12 +56,12 @@ mod tests {
     use super::*;
     #[test]
     fn part1_demo() {
-        assert_eq!(7, part1(&get_demo_map(), 3, 1));
+        assert_eq!(7, do_part1(&get_demo_map(), 3, 1));
     }
 
     #[test]
     fn part2_demo() {
-        assert_eq!(336, part2(&get_demo_map()));
+        assert_eq!(336, do_part2(&get_demo_map()));
     }
 
     fn get_demo_map() -> Vec<String> {
