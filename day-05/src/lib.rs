@@ -6,8 +6,24 @@ pub fn part1(input: &str) -> usize {
         .expect("Expected a max value")
 }
 
-pub fn part2(_input: &String) -> usize {
-    unimplemented!("Not implemented");
+pub fn part2(input: &str) -> usize {
+    let all_ids: Vec<usize> = input
+        .lines()
+        .filter(|f| {
+            // is not the front or back row
+            let row = get_row(f);
+            0 != row && 127 != row
+        })
+        .map(|f| get_id(f))
+        .collect();
+    for id in &all_ids {
+        let other_id = id + 2;
+        let my_id = id + 1;
+        if all_ids.contains(&other_id) && !all_ids.contains(&my_id) {
+            return my_id;
+        }
+    }
+    panic!("Could not find my seat! :(")
 }
 
 fn get_id(input: &str) -> usize {
