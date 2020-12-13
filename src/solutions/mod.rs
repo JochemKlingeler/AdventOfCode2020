@@ -3,7 +3,8 @@ mod day_02;
 mod day_03;
 mod day_04;
 mod day_05;
-pub fn exec_day(day: u8) {
+mod day_06;
+pub fn exec_day(day: &u8) {
     match day {
         1 => println!(
             "Day 1, part 1: {}, part 2: {}",
@@ -30,6 +31,11 @@ pub fn exec_day(day: u8) {
             day_05::part1(),
             day_05::part2()
         ),
-        _ => panic!("Did not do this day yet!"),
+        6 => println!(
+            "Day 6, part 1: {}, part 2: {}",
+            day_06::part1(),
+            day_06::part2()
+        ),
+        _ => println!("Day {} is not implemented yet!", day),
     }
 }

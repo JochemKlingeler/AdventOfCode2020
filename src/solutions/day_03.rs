@@ -8,7 +8,7 @@ pub fn part2() -> usize {
     do_part2(&get_day_03_input())
 }
 
-pub fn do_part1(map: &[String], go_right: usize, go_down: usize) -> usize {
+fn do_part1(map: &[String], go_right: usize, go_down: usize) -> usize {
     let mut x: usize = 0;
     let mut y: usize = 0;
     let mut trees: usize = 0;

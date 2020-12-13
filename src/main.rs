@@ -1,5 +1,7 @@
 mod solutions;
 
 fn main() {
-    solutions::exec_day(5)
+    for day in 1..32 {
+        solutions::exec_day(&day)
+    }
 }
