@@ -7,17 +7,36 @@ fn main() {
     // println!("Day 2, part 2 solution is: {}", exec_day_02_part_2());
     // println!("Day 3, part 1 solution is: {}", exec_day_03_part_1());
     // println!("Day 3, part 2 solution is: {}", exec_day_03_part_2());
-    println!("Day 4, part 1 solution is: {}", exec_day_04_part_1());
-    println!("Day 4, part 2 solution is: {}", exec_day_04_part_2());
+    // println!("Day 4, part 1 solution is: {}", exec_day_04_part_1());
+    // println!("Day 4, part 2 solution is: {}", exec_day_04_part_2());
+    println!("Day 5, part 1 solution is: {}", exec_day_05_part_1());
+    // println!("Day 5, part 2 solution is: {}", exec_day_05_part_2());
 }
+
+fn exec_day_05_part_1() -> usize {
+    day_05::part1(&get_day_05_input())
+}
+
+#[allow(dead_code)]
+fn exec_day_05_part_2() -> usize {
+    day_05::part2(&get_day_05_input())
+}
+
+fn get_day_05_input() -> String {
+    fs::read_to_string("./input/day_05.txt").expect("Something went wrong reading the file")
+}
+
+#[allow(dead_code)]
 fn exec_day_04_part_1() -> usize {
     day_04::part1(&get_day_04_input())
 }
 
+#[allow(dead_code)]
 fn exec_day_04_part_2() -> usize {
     day_04::part2(&get_day_04_input())
 }
 
+#[allow(dead_code)]
 fn get_day_04_input() -> String {
     fs::read_to_string("./input/day_04.txt").expect("Something went wrong reading the file")
 }

@@ -1,3 +1,15 @@
+pub fn part1(input: &str) -> usize {
+    input
+        .lines()
+        .map(|f| get_id(f))
+        .max()
+        .expect("Expected a max value")
+}
+
+pub fn part2(_input: &String) -> usize {
+    unimplemented!("Not implemented");
+}
+
 fn get_id(input: &str) -> usize {
     let row = get_row(input);
     let seat = get_seat(input);
