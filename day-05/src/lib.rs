@@ -29,8 +29,7 @@ pub fn part2(input: &str) -> usize {
 fn get_id(input: &str) -> usize {
     let row = get_row(input);
     let seat = get_seat(input);
-    let id = row * 8 + seat;
-    id
+    row * 8 + seat
 }
 
 fn get_row(input: &str) -> usize {
@@ -46,10 +45,7 @@ fn get_row(input: &str) -> usize {
             _ => panic!("Expected either char 'B' or 'F' but got: {}", char),
         }
     }
-    range
-        .first()
-        .expect("Expected range to not be empty")
-        .clone()
+    *range.first().expect("Expected range to not be empty")
 }
 
 fn get_seat(input: &str) -> usize {
@@ -65,10 +61,7 @@ fn get_seat(input: &str) -> usize {
             _ => panic!("Expected either char 'L' or 'R' but got: {}", char),
         }
     }
-    range
-        .first()
-        .expect("Expected seat range to not be empty")
-        .clone()
+    *range.first().expect("Expected seat range to not be empty")
 }
 #[cfg(test)]
 mod tests {
