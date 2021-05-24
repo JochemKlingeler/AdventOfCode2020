@@ -1,5 +1,4 @@
-use std::collections::HashMap;
-use std::fs;
+use std::{collections::HashMap, fs};
 
 pub fn part1() -> usize {
     do_part1(&get_day_06_input())
@@ -14,7 +13,7 @@ fn do_part1(input: &str) -> usize {
                 .filter(|c| !c.is_whitespace())
                 .collect::<Vec<char>>();
 
-            vec.sort();
+            vec.sort_unstable();
             vec.dedup();
             vec.len()
         })
@@ -23,21 +22,28 @@ fn do_part1(input: &str) -> usize {
 }
 
 pub fn part2() -> usize {
-    do_part2(&get_day_06_input())
+    do_part2(&&get_day_06_input())
 }
 
-fn do_part2(_input: &str) -> usize {
-    // Idea, in the hashmap we store how many times each char was given
-    // and then count the items that have a count the same as linecount.
-    // This way we know all passengers have given the same answers.
+fn do_part2(input: &str) -> usize {
     input
         .split("\n\n")
         .map(|f| {
+            let person_count = f.lines().count();
             let mut char_count = HashMap::new();
-            let lines = f.lines();
-            for line in lines {
-                line.chars()
+            for person_result in f.lines() {
+                for char in person_result.chars() {
+                    let count = char_count.entry(char).or_insert(0);
+                    *count += 1;
+                }
             }
+            let mut all_persons_agree_on = 0;
+            for (_char, count) in char_count {
+                if count == person_count {
+                    all_persons_agree_on += 1;
+                }
+            }
+            all_persons_agree_on
         })
         .into_iter()
         .sum()
