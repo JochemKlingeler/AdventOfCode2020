@@ -12,7 +12,7 @@ fn do_part1(map: &[String], go_right: usize, go_down: usize) -> usize {
     let mut x: usize = 0;
     let mut y: usize = 0;
     let mut trees: usize = 0;
-    let max_lines = map.iter().count();
+    let max_lines = map.len();
     let mut line_width: usize = 0;
     while y < max_lines {
         let line = map[y].clone();

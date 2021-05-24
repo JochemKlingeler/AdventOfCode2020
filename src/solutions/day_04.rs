@@ -48,8 +48,8 @@ impl Field {
         }
         let amount = amount_result.unwrap();
         match measure {
-            MeasureLength::IN => 59 <= amount && amount <= 76,
-            MeasureLength::CM => 150 <= amount && amount <= 193,
+            MeasureLength::IN => (59..=76).contains(&amount),
+            MeasureLength::CM => (150..=193).contains(&amount),
         }
     }
 
